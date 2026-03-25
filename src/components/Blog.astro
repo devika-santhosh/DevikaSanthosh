@@ -1,0 +1,67 @@
+---
+import blog from '../data/blog.json';
+---
+
+<section id="blog">
+  <div class="container">
+    <h2 class="section-title fade-in">
+      <span>&lt;</span>Blog<span>/&gt;</span>
+    </h2>
+    <p class="section-subtitle fade-in">Thoughts and write-ups on data, analytics, and engineering</p>
+
+    <!-- Medium Profile Link -->
+    <div class="text-center mb-8 fade-in">
+      <a
+        href="https://medium.com/@devikasanthosh04"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn-outline inline-flex items-center gap-2 text-sm"
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z"/>
+        </svg>
+        View all posts on Medium
+      </a>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {blog.map((post: { title: string; date: string; excerpt: string; url: string; thumbnail: string }) => (
+        <a
+          href={post.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="card group block overflow-hidden fade-in hover:border-primary/40 transition-colors duration-300"
+        >
+          {/* Gradient Placeholder Header */}
+          <div class="h-40 w-full rounded-t-lg" style="background: linear-gradient(135deg, rgba(0,229,255,0.15), rgba(124,58,237,0.15));">
+            <div class="flex items-center justify-center h-full">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="text-primary/40">
+                <path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2" />
+                <path d="M18 14h-8" />
+                <path d="M15 18h-5" />
+                <path d="M10 6h8v4h-8V6Z" />
+              </svg>
+            </div>
+          </div>
+
+          <div class="p-5">
+            <p class="text-muted text-sm mb-2">
+              {new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+            </p>
+            <h3 class="font-heading text-lg font-semibold text-text mb-2 group-hover:text-primary transition-colors duration-200">
+              {post.title}
+            </h3>
+            <p class="text-muted text-sm leading-relaxed mb-4">{post.excerpt}</p>
+            <span class="text-primary text-sm font-medium inline-flex items-center gap-1 group-hover:underline">
+              Read More
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" />
+              </svg>
+            </span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>

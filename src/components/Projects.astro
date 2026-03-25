@@ -1,0 +1,105 @@
+---
+import projects from '../data/projects.json';
+---
+
+<section id="projects" class="py-20 px-6">
+  <div class="container mx-auto max-w-6xl">
+    <!-- Section Header -->
+    <h2 class="section-title">
+      <span class="text-muted">&lt;</span>Projects<span class="text-muted">/&gt;</span>
+    </h2>
+    <p class="section-subtitle">Hands-on work that tells the story</p>
+
+
+    <!-- Project Cards Grid -->
+    <div id="projects-grid" class="mt-10 grid grid-cols-1 gap-8 md:grid-cols-2">
+      {projects.map((project) => (
+        <div
+          class="project-card fade-in glow-border group flex flex-col overflow-hidden rounded-xl border border-border bg-surface transition-colors duration-300 hover:bg-surface-hover"
+          data-tools={project.filterTool.join(',')}
+          data-types={project.filterType.join(',')}
+        >
+          <!-- Gradient Placeholder Header -->
+          <div class="h-40 w-full bg-gradient-to-br from-primary/20 via-secondary/20 to-primary/10"></div>
+
+          <!-- Card Body -->
+          <div class="flex flex-1 flex-col p-6">
+            <!-- Title -->
+            <h3 class="font-heading text-lg font-bold text-text">
+              {project.title}
+            </h3>
+
+            <!-- Date -->
+            <span class="mt-1 text-sm text-muted">{project.date}</span>
+
+            <!-- Description -->
+            <p class="mt-3 text-sm leading-relaxed text-text/80">
+              {project.description}
+            </p>
+
+            <!-- Tags -->
+            <div class="mt-4 flex flex-wrap gap-2">
+              {project.tags.map((tag) => (
+                <span class="tag">{tag}</span>
+              ))}
+            </div>
+
+            <!-- Metrics -->
+            {project.metrics && project.metrics.length > 0 && (
+              <div class="mt-5 flex gap-3">
+                {project.metrics.map((metric) => (
+                  <div class="flex-1 rounded-lg border border-border bg-bg p-3 text-center">
+                    <p class="text-xs text-muted">{metric.label}</p>
+                    <p class="mt-1 font-heading text-xl text-primary">{metric.value}</p>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            <!-- Code Snippet -->
+            {project.codeSnippet && (
+              <div class="mt-5">
+                <pre class="overflow-x-auto rounded-lg bg-bg p-4"><code class="font-heading text-sm text-green">{project.codeSnippet}</code></pre>
+              </div>
+            )}
+
+            <!-- Links Row -->
+            <div class="mt-auto flex items-center gap-3 pt-5">
+              {project.github && project.github !== '' && (
+                <a
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center gap-1.5 rounded-lg border border-border px-3 py-1.5 text-sm text-muted transition-colors duration-200 hover:border-primary hover:text-primary"
+                  aria-label={`GitHub repository for ${project.title}`}
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                  </svg>
+                  Code
+                </a>
+              )}
+              {project.demo && project.demo !== '' && (
+                <a
+                  href={project.demo}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center gap-1.5 rounded-lg border border-border px-3 py-1.5 text-sm text-muted transition-colors duration-200 hover:border-primary hover:text-primary"
+                  aria-label={`Live demo for ${project.title}`}
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                    <polyline points="15 3 21 3 21 9"></polyline>
+                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                  </svg>
+                  Demo
+                </a>
+              )}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+

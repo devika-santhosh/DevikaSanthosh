@@ -1,0 +1,16 @@
+[
+  {
+    "role": "Analyst (Data Operations & Automation)",
+    "company": "Synaptic",
+    "location": "Bengaluru",
+    "startDate": "Jul 2024",
+    "endDate": "Present",
+    "bullets": [
+      "Built SQL pipelines processing financial datasets across <span class='text-primary'>30K+ companies</span>, reducing data processing time by <span class='text-primary'>25%</span>",
+      "Automated recurring Excel-based reporting using VBA, cutting manual effort by <span class='text-primary'>40%</span>",
+      "Built interactive dashboards in Power BI and Metabase, reducing client reporting turnaround time by <span class='text-primary'>30%</span>",
+      "Resolved high-priority client data requests using proprietary industry classification taxonomy",
+      "Sourced and validated investment-grade data from CapIQ, Crunchbase, and PitchBook across 30K+ companies"
+    ]
+  }
+]

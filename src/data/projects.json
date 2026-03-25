@@ -1,0 +1,53 @@
+[
+  {
+    "title": "E-Commerce Funnel & Retention Analytics",
+    "description": "Built a 5-stage conversion funnel on 320K+ event records and designed monthly cohort retention grids showing ~87% month-1 retention.",
+    "date": "Mar 2026",
+    "tags": ["SQL", "CTEs", "Window Functions", "Cohort Analysis"],
+    "filterTool": ["SQL"],
+    "filterType": ["Analytics"],
+    "metrics": [
+      { "label": "Event Records", "value": "320K+" },
+      { "label": "Month-1 Retention", "value": "~87%" }
+    ],
+    "codeSnippet": "SELECT user_id,\n  DATE_TRUNC('month', first_purchase) AS cohort_month,\n  DATE_TRUNC('month', order_date) AS activity_month,\n  COUNT(DISTINCT user_id) AS users\nFROM orders\nGROUP BY 1, 2, 3;",
+    "codeLanguage": "sql",
+    "github": "https://github.com/devika-santhosh/ecommerce-product-analytics-sql",
+    "demo": "",
+    "thumbnail": "/images/projects/funnel-analytics.png"
+  },
+  {
+    "title": "Customer Segmentation & Behavioral Analysis",
+    "description": "Engineered and analyzed 541,909 e-commerce transaction records using RFM framework with K-Means clustering for customer targeting.",
+    "date": "Jun 2025",
+    "tags": ["Python", "Pandas", "Scikit-learn", "K-Means"],
+    "filterTool": ["Python"],
+    "filterType": ["ML"],
+    "metrics": [
+      { "label": "Transaction Records", "value": "541K+" },
+      { "label": "Behavioral Features", "value": "3" }
+    ],
+    "codeSnippet": "from sklearn.cluster import KMeans\n\nkmeans = KMeans(\n    n_clusters=4,\n    init='k-means++',\n    random_state=42\n)\ndf['cluster'] = kmeans.fit_predict(rfm_scaled)",
+    "codeLanguage": "python",
+    "github": "https://github.com/devika-santhosh/e-commerce-data-analysis",
+    "demo": "",
+    "thumbnail": "/images/projects/customer-segmentation.png"
+  },
+  {
+    "title": "PwC Power BI Dashboard Project",
+    "description": "Designed and built impactful Power BI dashboards for PwC, applying key visualization techniques to surface actionable business insights from complex datasets.",
+    "date": "2025",
+    "tags": ["Power BI", "Data Visualization", "DAX", "Dashboard Design"],
+    "filterTool": ["Power BI"],
+    "filterType": ["Visualization"],
+    "metrics": [
+      { "label": "Tool", "value": "Power BI" },
+      { "label": "Client", "value": "PwC" }
+    ],
+    "codeSnippet": "-- DAX Measure Example\nTotal Revenue = \n  CALCULATE(\n    SUM(Sales[Revenue]),\n    FILTER(\n      Sales,\n      Sales[Date] >= TODAY() - 365\n    )\n  )",
+    "codeLanguage": "sql",
+    "github": "https://github.com/devika-santhosh/Power-BI-PwC-Project",
+    "demo": "",
+    "thumbnail": "/images/projects/powerbi-pwc.png"
+  }
+]

@@ -1,0 +1,73 @@
+---
+import experience from '../data/experience.json';
+---
+
+<section id="experience" class="py-20 px-6">
+  <div class="container mx-auto max-w-5xl">
+    <!-- Section Header -->
+    <h2 class="section-title">
+      <span class="text-muted">&lt;</span>Experience<span class="text-muted">/&gt;</span>
+    </h2>
+    <p class="section-subtitle">Where I've contributed and grown</p>
+
+    <!-- Timeline -->
+    <div class="relative mt-16">
+      <!-- Vertical Line -->
+      <div class="timeline-line absolute top-0 bottom-0 w-0.5 bg-border left-4 md:left-1/2 md:-translate-x-1/2"></div>
+
+      {experience.map((job, index) => {
+        const isLeft = index % 2 === 0;
+        return (
+          <div class={`fade-in relative mb-12 flex flex-col md:flex-row ${isLeft ? 'md:flex-row-reverse' : ''}`}>
+            <!-- Timeline Dot -->
+            <div class="absolute left-4 md:left-1/2 top-6 z-10 -translate-x-1/2">
+              <div class="h-4 w-4 rounded-full border-2 border-primary bg-bg shadow-[0_0_8px_var(--color-primary)]"></div>
+            </div>
+
+            <!-- Spacer for the other side -->
+            <div class="hidden md:block md:w-1/2"></div>
+
+            <!-- Card -->
+            <div class={`card ml-10 md:ml-0 md:w-1/2 ${isLeft ? 'md:pr-10' : 'md:pl-10'}`}>
+              <div class="rounded-xl border border-border bg-surface p-6 transition-colors duration-300 hover:bg-surface-hover">
+                <!-- Date -->
+                <span class="mb-2 inline-block font-heading text-sm text-primary">
+                  {job.startDate} &mdash; {job.endDate}
+                </span>
+
+                <!-- Role -->
+                <h3 class="font-heading text-lg font-bold text-text">
+                  {job.role}
+                </h3>
+
+                <!-- Company & Location -->
+                <p class="mt-1 text-sm text-muted">
+                  {job.company} &middot; {job.location}
+                </p>
+
+                <!-- Bullets -->
+                <ul class="mt-4 space-y-2">
+                  {job.bullets.map((bullet) => (
+                    <li class="flex items-start gap-2 text-sm leading-relaxed text-text">
+                      <span class="mt-1.5 block h-1.5 w-1.5 shrink-0 rounded-full bg-primary"></span>
+                      <span set:html={bullet} />
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Mobile: line on the left, cards on the right */
+  @media (max-width: 767px) {
+    .timeline-line {
+      left: 1rem;
+    }
+  }
+</style>

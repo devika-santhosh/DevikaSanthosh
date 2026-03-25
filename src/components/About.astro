@@ -1,0 +1,152 @@
+---
+import profile from '../data/profile.json';
+import stats from '../data/stats.json';
+---
+
+<section id="about" class="relative overflow-hidden">
+  <!-- Geometric pattern overlay -->
+  <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+    <div class="geo-pattern absolute inset-0 opacity-[0.03]"></div>
+  </div>
+
+  <div class="container relative z-10">
+    <h2 class="section-title fade-in">
+      <span>&lt;</span>About Me<span>/&gt;</span>
+    </h2>
+    <p class="section-subtitle fade-in">Get to know the person behind the data</p>
+
+    <!-- Split layout -->
+    <div class="grid grid-cols-1 md:grid-cols-[auto_1fr] gap-12 items-center mb-20 fade-in">
+      <!-- Left: Photo placeholder -->
+      <div class="flex justify-center">
+        <div class="photo-ring relative w-[200px] h-[200px] rounded-full flex items-center justify-center">
+          <div class="absolute inset-0 rounded-full border-2 border-primary/40 shadow-[0_0_30px_rgba(0,229,255,0.2),inset_0_0_30px_rgba(0,229,255,0.05)]"></div>
+          <div class="w-[188px] h-[188px] rounded-full bg-surface flex items-center justify-center">
+            <span class="font-heading text-5xl font-bold text-primary select-none">DS</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Bio paragraphs -->
+      <div class="space-y-4">
+        {profile.about.map((paragraph: string) => (
+          <p class="text-muted leading-relaxed text-base">{paragraph}</p>
+        ))}
+      </div>
+    </div>
+
+    <!-- Stats grid -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 fade-in" id="stats-grid">
+      {stats.map((stat: { value: number; suffix: string; label: string; decimals: number }) => (
+        <div class="card glow-border p-6 text-center">
+          <div class="flex items-baseline justify-center gap-1">
+            <span
+              class="stat-number font-heading text-4xl font-bold text-primary"
+              data-target={stat.value}
+              data-decimals={stat.decimals}
+            >
+              0
+            </span>
+            <span class="font-heading text-2xl font-bold text-primary">{stat.suffix}</span>
+          </div>
+          <p class="text-muted text-sm mt-2">{stat.label}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .geo-pattern {
+    background-image:
+      linear-gradient(rgba(0, 229, 255, 0.4) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 229, 255, 0.4) 1px, transparent 1px),
+      linear-gradient(45deg, rgba(124, 58, 237, 0.3) 1px, transparent 1px),
+      linear-gradient(-45deg, rgba(124, 58, 237, 0.3) 1px, transparent 1px);
+    background-size:
+      60px 60px,
+      60px 60px,
+      80px 80px,
+      80px 80px;
+    background-position:
+      -1px -1px,
+      -1px -1px,
+      0 0,
+      0 0;
+  }
+
+  .photo-ring {
+    animation: ring-pulse 4s ease-in-out infinite;
+  }
+
+  @keyframes ring-pulse {
+    0%, 100% {
+      filter: drop-shadow(0 0 8px rgba(0, 229, 255, 0.2));
+    }
+    50% {
+      filter: drop-shadow(0 0 20px rgba(0, 229, 255, 0.35));
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .photo-ring {
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  function animateCounters() {
+    const statsGrid = document.getElementById('stats-grid');
+    if (!statsGrid) return;
+
+    let hasAnimated = false;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !hasAnimated) {
+            hasAnimated = true;
+            const counters = statsGrid.querySelectorAll('.stat-number');
+
+            counters.forEach((counter) => {
+              const el = counter as HTMLElement;
+              const target = parseFloat(el.dataset.target || '0');
+              const decimals = parseInt(el.dataset.decimals || '0', 10);
+              const duration = 2000;
+              const startTime = performance.now();
+
+              function update(currentTime: number) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+
+                // Ease-out cubic
+                const eased = 1 - Math.pow(1 - progress, 3);
+                const current = eased * target;
+
+                el.textContent = current.toFixed(decimals);
+
+                if (progress < 1) {
+                  requestAnimationFrame(update);
+                } else {
+                  el.textContent = target.toFixed(decimals);
+                }
+              }
+
+              requestAnimationFrame(update);
+            });
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    observer.observe(statsGrid);
+  }
+
+  // Run on initial load
+  animateCounters();
+
+  // Re-run after Astro page transitions
+  document.addEventListener('astro:after-swap', animateCounters);
+</script>

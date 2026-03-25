@@ -1,0 +1,14 @@
+{
+  "name": "Devika Santhosh",
+  "title": "Data Analyst",
+  "tagline": "I build SQL pipelines, automate reporting, and turn messy data into decisions.",
+  "email": "devikasanthosh0499@gmail.com",
+  "location": "Bengaluru, India",
+  "linkedin": "https://www.linkedin.com/in/devika-santhosh04/",
+  "github": "https://github.com/devika-santhosh",
+  "about": [
+    "Analytics-focused data professional with 1.7 years of experience building SQL-driven data workflows, automating reporting pipelines, and developing BI dashboards. Holds an MSc in Mathematics from IISER Thiruvananthapuram.",
+    "Currently at Synaptic, working with private-market investment data across 30K+ companies — building SQL pipelines, automating Excel reporting with VBA, and creating interactive dashboards in Power BI and Metabase.",
+    "Passionate about building scalable data systems and actively upskilling toward analytics engineering with dbt and modern data stack tools."
+  ]
+}

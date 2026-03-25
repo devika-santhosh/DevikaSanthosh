@@ -1,0 +1,57 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Hero from '../components/Hero.astro';
+import About from '../components/About.astro';
+import Skills from '../components/Skills.astro';
+import Experience from '../components/Experience.astro';
+import Projects from '../components/Projects.astro';
+import Certifications from '../components/Certifications.astro';
+
+import Blog from '../components/Blog.astro';
+import Contact from '../components/Contact.astro';
+import Chatbot from '../components/Chatbot.astro';
+import Footer from '../components/Footer.astro';
+import BackToTop from '../components/BackToTop.astro';
+---
+
+<Layout>
+  <Navbar />
+  <main>
+    <Hero />
+    <About />
+    <Skills />
+    <Experience />
+    <Projects />
+    <Certifications />
+    <Blog />
+    <Contact />
+  </main>
+  <Footer />
+  <Chatbot />
+  <BackToTop />
+
+  <!-- Global scroll animations -->
+  <script>
+    function initScrollAnimations() {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+      );
+
+      document.querySelectorAll('.fade-in').forEach((el) => {
+        observer.observe(el);
+      });
+    }
+
+    initScrollAnimations();
+    document.addEventListener('astro:after-swap', initScrollAnimations);
+  </script>
+</Layout>

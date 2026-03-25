@@ -1,0 +1,190 @@
+---
+const navLinks = [
+  { label: 'Home', href: '#home' },
+  { label: 'About', href: '#about' },
+  { label: 'Skills', href: '#skills' },
+  { label: 'Experience', href: '#experience' },
+  { label: 'Projects', href: '#projects' },
+  { label: 'Certifications', href: '#certifications' },
+  { label: 'Blog', href: '#blog' },
+  { label: 'Contact', href: '#contact' },
+];
+---
+
+<header
+  id="navbar"
+  class="glass fixed top-0 left-0 right-0 z-50 transition-transform duration-300"
+>
+  <nav class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+    <!-- Logo -->
+    <a href="#home" class="group flex items-center gap-1 text-lg font-heading">
+      <span class="text-muted">&lt;</span>
+      <span class="text-primary font-bold">DS</span>
+      <span class="text-muted">&nbsp;/&gt;</span>
+    </a>
+
+    <!-- Desktop Nav Links -->
+    <ul class="hidden items-center gap-8 md:flex">
+      {navLinks.map((link) => (
+        <li>
+          <a
+            href={link.href}
+            class="nav-link relative text-sm text-muted transition-colors duration-200 hover:text-primary"
+          >
+            {link.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <!-- Mobile Hamburger Button -->
+    <button
+      id="menu-toggle"
+      class="relative z-60 flex h-10 w-10 flex-col items-center justify-center gap-1.5 md:hidden"
+      aria-label="Toggle navigation menu"
+      aria-expanded="false"
+    >
+      <span class="hamburger-bar h-0.5 w-6 rounded-full bg-text transition-all duration-300"></span>
+      <span class="hamburger-bar h-0.5 w-6 rounded-full bg-text transition-all duration-300"></span>
+      <span class="hamburger-bar h-0.5 w-6 rounded-full bg-text transition-all duration-300"></span>
+    </button>
+  </nav>
+
+  <!-- Mobile Drawer Overlay -->
+  <div
+    id="mobile-drawer"
+    class="fixed inset-0 z-50 flex translate-x-full flex-col items-center justify-center bg-bg/95 backdrop-blur-xl transition-transform duration-500 ease-in-out md:hidden"
+  >
+    <ul class="flex flex-col items-center gap-8">
+      {navLinks.map((link, i) => (
+        <li style={`transition-delay: ${(i + 1) * 60}ms`} class="drawer-link translate-y-4 opacity-0 transition-all duration-300">
+          <a
+            href={link.href}
+            class="mobile-nav-link text-2xl font-heading text-text transition-colors duration-200 hover:text-primary"
+          >
+            {link.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</header>
+
+<style>
+  .hamburger-open .hamburger-bar:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+  .hamburger-open .hamburger-bar:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  .hamburger-open .hamburger-bar:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+
+  .drawer-visible .drawer-link {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--color-primary);
+    transition: width 0.3s ease;
+  }
+
+  .nav-link:hover::after {
+    width: 100%;
+  }
+</style>
+
+<script>
+  function initNavbar() {
+    const navbar = document.getElementById('navbar') as HTMLElement;
+    const menuToggle = document.getElementById('menu-toggle') as HTMLButtonElement;
+    const mobileDrawer = document.getElementById('mobile-drawer') as HTMLElement;
+    const mobileNavLinks = mobileDrawer.querySelectorAll('.mobile-nav-link');
+
+    if (!navbar || !menuToggle || !mobileDrawer) return;
+
+    // --- Hide/show navbar on scroll ---
+    let lastScrollY = window.scrollY;
+    let ticking = false;
+
+    const updateNavbar = () => {
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY > lastScrollY && currentScrollY > 80) {
+        navbar.style.transform = 'translateY(-100%)';
+      } else {
+        navbar.style.transform = 'translateY(0)';
+      }
+
+      lastScrollY = currentScrollY;
+      ticking = false;
+    };
+
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(updateNavbar);
+        ticking = true;
+      }
+    });
+
+    // --- Mobile drawer toggle ---
+    let isOpen = false;
+
+    const openDrawer = () => {
+      isOpen = true;
+      menuToggle.classList.add('hamburger-open');
+      menuToggle.setAttribute('aria-expanded', 'true');
+      mobileDrawer.classList.remove('translate-x-full');
+      mobileDrawer.classList.add('translate-x-0');
+      document.body.style.overflow = 'hidden';
+
+      requestAnimationFrame(() => {
+        mobileDrawer.classList.add('drawer-visible');
+      });
+    };
+
+    const closeDrawer = () => {
+      isOpen = false;
+      menuToggle.classList.remove('hamburger-open');
+      menuToggle.setAttribute('aria-expanded', 'false');
+      mobileDrawer.classList.remove('drawer-visible');
+
+      setTimeout(() => {
+        mobileDrawer.classList.remove('translate-x-0');
+        mobileDrawer.classList.add('translate-x-full');
+        document.body.style.overflow = '';
+      }, 300);
+    };
+
+    menuToggle.addEventListener('click', () => {
+      if (isOpen) {
+        closeDrawer();
+      } else {
+        openDrawer();
+      }
+    });
+
+    mobileNavLinks.forEach((link) => {
+      link.addEventListener('click', closeDrawer);
+    });
+
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && isOpen) {
+        closeDrawer();
+      }
+    });
+  }
+
+  initNavbar();
+  document.addEventListener('astro:after-swap', initNavbar);
+</script>

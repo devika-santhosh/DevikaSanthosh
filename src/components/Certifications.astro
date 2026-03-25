@@ -1,0 +1,83 @@
+---
+import certifications from '../data/certifications.json';
+import awards from '../data/awards.json';
+---
+
+<section id="certifications">
+  <div class="container">
+    <h2 class="section-title fade-in">
+      <span>&lt;</span>Certifications & Awards<span>/&gt;</span>
+    </h2>
+    <p class="section-subtitle fade-in">Credentials and recognitions earned along the way</p>
+
+    <!-- Certifications Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+      {certifications.map((cert: { name: string; issuer: string; date: string; link: string }) => (
+        <div class="flip-card fade-in">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <div class="text-primary mb-4">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="8" r="6" />
+                  <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11" />
+                </svg>
+              </div>
+              <h3 class="font-heading text-base font-semibold text-text mb-2 text-center leading-snug">{cert.name}</h3>
+              <p class="text-muted text-sm">{cert.date}</p>
+            </div>
+            <div class="flip-card-back">
+              <p class="text-muted text-sm mb-1">Issued by</p>
+              <h3 class="font-heading text-base font-semibold text-text mb-2">{cert.issuer}</h3>
+              <p class="text-muted text-sm mb-4">{cert.date}</p>
+              <a
+                href={cert.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-primary text-sm font-medium hover:underline inline-flex items-center gap-1"
+              >
+                View Certificate
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                  <polyline points="15 3 21 3 21 9" />
+                  <line x1="10" y1="14" x2="21" y2="3" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Awards Section -->
+    <h3 class="font-heading text-2xl font-bold text-text mb-8 text-center fade-in">
+      <span class="text-primary">&#9733;</span> Awards & Recognition
+    </h3>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {awards.map((award: { title: string; organization: string; period: string; description: string }) => (
+        <div class="relative rounded-xl p-[1px] fade-in" style="background: linear-gradient(135deg, #00e5ff, #7c3aed);">
+          <div class="bg-surface rounded-xl p-6 h-full">
+            <div class="flex items-start gap-4">
+              <div class="text-primary shrink-0 mt-1">
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5C7 4 7 7 7 7" />
+                  <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5C17 4 17 7 17 7" />
+                  <path d="M4 22h16" />
+                  <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22" />
+                  <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22" />
+                  <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
+                </svg>
+              </div>
+              <div>
+                <h4 class="font-heading text-lg font-semibold text-text">{award.title}</h4>
+                <p class="text-primary text-sm font-medium">{award.organization}</p>
+                <p class="text-muted text-sm mb-2">{award.period}</p>
+                <p class="text-muted text-sm leading-relaxed">{award.description}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

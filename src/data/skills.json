@@ -1,0 +1,32 @@
+[
+  {
+    "category": "Languages",
+    "icon": "code-2",
+    "items": ["SQL", "Python"]
+  },
+  {
+    "category": "Analytics",
+    "icon": "bar-chart-3",
+    "items": ["Cohort Analysis", "Funnel Analysis", "A/B Testing", "RFM Analysis"]
+  },
+  {
+    "category": "BI & Reporting",
+    "icon": "pie-chart",
+    "items": ["Power BI", "Metabase", "Mixpanel", "Excel"]
+  },
+  {
+    "category": "Data Infrastructure",
+    "icon": "database",
+    "items": ["dbt", "MySQL", "Git/GitHub"]
+  },
+  {
+    "category": "Product & Delivery",
+    "icon": "kanban",
+    "items": ["Agile/Scrum", "Jira", "Sprint Planning"]
+  },
+  {
+    "category": "Documentation",
+    "icon": "file-text",
+    "items": ["Release Notes", "Workflow Diagrams", "Process Docs"]
+  }
+]
